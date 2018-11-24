@@ -1,0 +1,12 @@
+name: GunProject
+title: GunProject
+username:
+account: djantz
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 587522
+bundleId: 1717615
+url: https://djantz.shinyapps.io/GunProject/
+when: 1543026516.23596
+asMultiple: FALSE
+asStatic: FALSE

@@ -5,8 +5,8 @@ account: djantz
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 587411
-bundleId: 1717575
+bundleId: 1717587
 url: https://djantz.shinyapps.io/gunviolence/
-when: 1543021949.21375
+when: 1543023542.40038
 asMultiple: FALSE
 asStatic: FALSE

@@ -5,8 +5,6 @@ library(leaflet)
 library(RColorBrewer)
 library(data.table)
 
-setwd("G:/Documents/Deepika Files/Journey USA/University of Nebraska,Omaha/2018 Sem06-FAL/STAT 4410 - Introduction to Data Science/Project Work/Gun Violence/shiny-apps-master/gunviolence/gunviolence")
-
 all <- readRDS("Data/GunViolence.rds")
 
 ui <- navbarPage("US Gun Violence", id="nav",
@@ -20,18 +18,18 @@ ui <- navbarPage("US Gun Violence", id="nav",
                                             class = "panel panel-default", fixed = TRUE,
                                             draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
                                             width = 330, height = "auto",
-                                            h2("US Gun Violence"),
+                                            h3("US Gun Violence"),
                                             h4("2014-2018"),
                                             radioButtons("incidentweight", "Incident Factor:",
                                                          c("Killed"="Killed", "Injured"="Injured"), 
                                                          selected = "Killed", inline=TRUE),
-                                            sliderInput(inputId = "date", label = "Animate",
+                                            sliderInput(inputId = "date", label = "Date Range",
                                                         min = min(all$Date), 
                                                         max = max(all$Date),
                                                         value = max(all$Date),
-                                                        ticks = F,
+                                                        ticks = TRUE,
                                                         step=365/12, 
-                                                        animate = animationOptions(interval = 500,
+                                                        animate = animationOptions(interval = 1000,
                                                                                    playButton = icon('play', "fa-2x"),
                                                                                    pauseButton = icon('pause', "fa-2x"))),
                                             textOutput("counts")

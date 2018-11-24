@@ -2,6 +2,7 @@
 if (!require('plyr')) install.packages('plyr')
 if (!require('dplyr')) install.packages('dplyr')
 if (!require('ggmap')) install.packages('ggmap')
+if (!require('zoo')) install.packages('zoo')
 
 DataPrep <- function(all) {
   det <-fread("gun-violence-data_01-2013_03-2018.csv")%>%

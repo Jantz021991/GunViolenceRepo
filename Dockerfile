@@ -1,6 +1,6 @@
 FROM r-base:latest
 
-MAINTAINER Walt Wells <walt.p.wells@gmail.com>
+MAINTAINER Deepika Jantz <deeps.jantz@gmail.com>
 
 RUN apt-get update && apt-get install -y \
     sudo \
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     gsl-bin \
     libgsl0-dev
 
-RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'xts', 'dplyr', 'leaflet'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'xts', 'dplyr', 'leaflet','zoo','RColorBrewer','data.table'), repos='http://cran.rstudio.com/')"
 
 RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubuntu-12.04/x86_64/VERSION -O "version.txt" && \
     VERSION=$(cat version.txt)  && \
@@ -26,7 +26,7 @@ rm -f version.txt ss-latest.deb
 COPY app.R /srv/shiny-server/
 COPY Assets/styles.css /srv/shiny-server/Assets/styles.css
 COPY Assets/shiny-server.conf /etc/shiny-server/shiny-server.conf
-COPY Data/GunsGeo.rds /srv/shiny-server/Data/GunsGeo.rds
+COPY Data/GunViolence.rds /srv/shiny-server/Data/GunViolence.rds
 
 RUN touch /srv/shiny-server/runlog.log
 
