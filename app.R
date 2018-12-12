@@ -6,6 +6,7 @@ library(RColorBrewer)
 library(data.table)
 
 all <- readRDS("Data/GunViolence.rds")
+#all <- readRDS("Data/GunsGeo.rds")
 
 ui <- navbarPage(
   "US Gun Violence",
@@ -29,7 +30,7 @@ ui <- navbarPage(
         width = 330,
         height = "auto",
         h3("US Gun Violence"),
-        h4("2014-2018"),
+        h4("2014-2017"),
         radioButtons(
           "incidentweight",
           "Incident Factor:",
@@ -45,9 +46,9 @@ ui <- navbarPage(
           max = max(all$Date),
           value = max(all$Date),
           ticks = TRUE,
-          step = 365 / 12,
+          step = 90,
           animate = animationOptions(
-            interval = 1000,
+            interval = 5000,
             playButton = icon('play', "fa-2x"),
             pauseButton = icon('pause', "fa-2x")
           )
@@ -106,19 +107,19 @@ ui <- navbarPage(
                )
                )
                ))
-           )
+)
 
 server <- function(input, output, session) {
   history <- reactive({
     all %>%
       filter(Date <= input$date)
   })
-
+  
   color <- reactive({
     if (input$incidentweight == "Killed") {
-      col = "OrRd"
+      col = "RdYlGn"
     } else {
-      col ="YlGn"
+      col ="Blues"
     }
   })
   
@@ -153,21 +154,12 @@ server <- function(input, output, session) {
   
   output$map <- renderLeaflet({
     leaflet() %>%
-      addTiles(
-        'http://{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png',
-        attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>,
-        <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy;
-        <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      ) %>%  # Add default OpenStreetMap map tiles%>%
-      addLegend(
-        position = "bottomleft",
-        pal = colorpal(),
-        values = all[[input$incidentweight]],
-        title = name()
-      ) %>%
-      setView(lng = -83.7129,
-              lat = 37.0902,
-              zoom = 4)
+      addTiles('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', 
+               attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>') %>%  # Add default OpenStreetMap map tiles%>%
+      addLegend(position = "bottomright",
+                pal = colorpal(), values = all[[input$incidentweight]],
+                title = name()) %>%
+      setView(lng = -83.7129, lat = 37.0902, zoom = 4)
   })
   
   observe({
@@ -181,7 +173,7 @@ server <- function(input, output, session) {
         radius = ~ history()[[input$incidentweight]] * sc(),
         weight = 1,
         popup = ~ Content,
-        color = "white",
+        color = "#777777",
         fillColor = ~ pal(history()[[input$incidentweight]]),
         stroke = F,
         fillOpacity = 0.8,
