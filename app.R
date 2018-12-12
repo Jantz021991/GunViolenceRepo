@@ -6,7 +6,6 @@ library(RColorBrewer)
 library(data.table)
 
 all <- readRDS("Data/GunViolence.rds")
-#all <- readRDS("Data/GunsGeo.rds")
 
 ui <- navbarPage(
   "US Gun Violence",
@@ -73,7 +72,7 @@ ui <- navbarPage(
                ),
                p(
                  " The archive provides some data on gun violence via their website. This application maps all available data from
-                 2014-2017 data. There are about ~1200 observations in this aggregated dataset."
+                 2014-2017 data. The data was filtered out for the year 2018, as we had collected data only for the first quarter of 2018.This gave us False interpretations for our Analysis,"
                ),
                h3("Abstract"),
                p(
@@ -87,11 +86,7 @@ ui <- navbarPage(
                  U.S. and then post and disseminate it online, primarily if not exclusively on this website and summary ledgers at www.facebook.com/gunviolencearchive.
                  It is hoped that this information will inform and assist those engaged in discussions and activities concerning gun violence, including analysis of
                  proposed regulations or legislation relating to gun safety usage. All we ask is to please provide proper credit for use of Gun Violence Archive data and
-                 advise us of its use.
-                 
-                 GVA is not, by design an advocacy group. The mission of GVA is to document incidents of gun violence and gun crime nationally to provide independent,
-                 verified data to those who need to use it in their research, advocacy or writing.
-                 "
+                 advise us of its use."
                ),
                h3("Source Code"),
                div(
